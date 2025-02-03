@@ -31,7 +31,8 @@ DFS Average Path Length:  45882.7
 IDS Average Path Length:  9.9
 
 ### Task 4a
-
+my_hueristic checks to see if any of the valid swaps move two tiles into their correct position.
+If a swap
 
 ### Task 4b
 
