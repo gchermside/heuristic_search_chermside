@@ -98,10 +98,17 @@ class IOTest(unittest.TestCase):
         self._check_tilegame(two_swap_start_state, two_swap_goal_state, length=3, heuristic=admissible_heuristic)
         self._check_tilegame(two_swap_start_state, two_swap_goal_state, heuristic=inadmissible_heuristic)
 
-        # #checks that inadmissible_heuristic runs on a larger board
-        # four_by_four_start = TileGameState(((16, 2, 3, 4), (5, 6, 8, 7), (13, 11, 11, 12), (9, 14, 15, 1)))
-        # four_by_four_goal = TileGameState(((1, 2, 3, 4), (5, 6, 7, 8), (9, 10, 11, 12), (13, 14, 15, 16)))
-        # self._check_tilegame(four_by_four_start, four_by_four_goal, heuristic=inadmissible_heuristic)
+        #checks on a 2-by-2 board that admissible_heuristic finds a path of the right length
+        four_swap_start_state = TileGameState(((4, 2), (3, 1)))
+        four_swap_goal_state = TileGameState(((1, 2), (3, 4)))
+        self._check_tilegame(four_swap_start_state, four_swap_goal_state, length=4, heuristic=admissible_heuristic)
+        self._check_tilegame(four_swap_start_state, four_swap_goal_state, heuristic=inadmissible_heuristic)
+
+        five_swap_start_state = TileGameState(((4, 3), (2, 1)))
+        five_swap_goal_state = TileGameState(((1, 2), (3, 4)))
+        self._check_tilegame(five_swap_start_state, five_swap_goal_state, length=5, heuristic=admissible_heuristic)
+        self._check_tilegame(five_swap_start_state, five_swap_goal_state, heuristic=inadmissible_heuristic)
+
 
 if __name__ == "__main__":
     unittest.main()

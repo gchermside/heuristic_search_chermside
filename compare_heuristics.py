@@ -209,7 +209,7 @@ def main():
     can be toggled by commenting or uncommenting lines within this function.
     """
     # make_completion_rate_plot()
-    compare_lambdas(admissible_heuristic, size=3, num_trials=100)
+    compare_lambdas(admissible_heuristic, size=3, num_trials=50)
     lambdas = np.geomspace(1, 5, 8, endpoint=True)
     heuristics = {'{:.2f}'.format(l): ScaledHeuristic(
         admissible_heuristic, l) for l in lambdas}
@@ -218,3 +218,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

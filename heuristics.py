@@ -58,49 +58,64 @@ def my_heuristic(state: TileGameState) -> float:
 
     Returns: a float (the heuristic value of state).
     """
-    heuristic_value = 0
-    dimension = len(state.board)
-    for i in range(dimension):
-        for j in range(dimension):
-            num = state.board[i][j]
-            row = (num-1) // dimension
-            col = (num-1) % dimension
-            num = state.board[i][j]
-            cur_location_goal = (i * dimension) + j
-            if not num == cur_location_goal: #if the number is not where it belongs
-                heuristic_value += (abs(row-i) ** 2 + abs(col-j) ** 2) ** 0.5
-                # # try to swap it each way, and see how that changes
-                # if i > 0: #if we are not is the top row, swap up and see what happens
-                #     num_goal_up = (i - 1) * dimension + j
-                #     if num == num_goal_up:
-                #         other_num_up = state.board[i - 1][j]
-                #         if other_num_up == cur_location_goal:
-                #             heuristic_value += 0.5
-                #             continue
+    return admissible_heuristic(state)
+    # return None
+    #############################################################
+    # dimension = len(state.board)
+    # total_distance = 0
+    # for i in range(dimension):
+    #     for j in range(dimension):
+    #         num = state.board[i][j]
+    #         row = (num-1) // dimension
+    #         col = (num-1) % dimension
+    #         total_distance += abs(row-i) + abs(col-j)
+    # return total_distance / 2
+#################################################################
+    # heuristic_value = 0
+    # dimension = len(state.board)
+    # for i in range(dimension):
+    #     for j in range(dimension):
+    #         num = state.board[i][j]
+    #         row = (num-1) // dimension
+    #         col = (num-1) % dimension
+    #         cur_location_goal = (i * dimension) + j
+    #         # if not num == cur_location_goal: #if the number is not where it belongs
+    #             # heuristic_value += (abs(row-i) ** 2 + abs(col-j) ** 2) ** 0.5 # euclidian distance
 
-                # if i < dimension - 1: #if we are not is the bottom row, swap down and see what happens
-                #     num_goal_down = (i + 1) * dimension + j
-                #     if num == num_goal_down:
-                #         other_num_down = state.board[i + 1][j]
-                #         if other_num_down == cur_location_goal:
-                #             heuristic_value += 0.5
-                #             continue
+    #             # try to swap it each way, and see how that changes
+    #             # if i > 0: #if we are not is the top row, swap up and see what happens
+    #             #     num_goal_up = (i - 1) * dimension + j
+    #             #     if num == num_goal_up:
+    #             #         other_num_up = state.board[i - 1][j]
+    #             #         if other_num_up == cur_location_goal:
+    #             #             heuristic_value += 0.5
+    #             #             continue
 
-                # if j > 0: #if we are not is the left-most row, swap left and see what happens
-                #     num_goal_left = (i * dimension) + (j - 1)
-                #     if num == num_goal_left:
-                #         other_num_left = state.board[i][j - 1]
-                #         if other_num_left == cur_location_goal:
-                #             heuristic_value += 0.5
-                #             continue
+    #             # if i < dimension - 1: #if we are not is the bottom row, swap down and see what happens
+    #             #     num_goal_down = (i + 1) * dimension + j
+    #             #     if num == num_goal_down:
+    #             #         other_num_down = state.board[i + 1][j]
+    #             #         if other_num_down == cur_location_goal:
+    #             #             heuristic_value += 0.5
+    #             #             continue
 
-                # if j < dimension - 1: #if we are not is the right-most row, swap right and see what happens
-                #     num_goal_right = (i * dimension) + (j + 1)
-                #     if num == num_goal_right:
-                #         other_num_right = state.board[i][j + 1]
-                #         if other_num_right == cur_location_goal:
-                #             heuristic_value += 0.5
-                #             continue
-                # heuristic_value += abs(row-i) + abs(col-j)
-    # print("heuristic ", heuristic_value, state)
-    return heuristic_value
+    #             # if j > 0: #if we are not is the left-most row, swap left and see what happens
+    #             #     num_goal_left = (i * dimension) + (j - 1)
+    #             #     if num == num_goal_left:
+    #             #         other_num_left = state.board[i][j - 1]
+    #             #         if other_num_left == cur_location_goal:
+    #             #             heuristic_value += 0.5
+    #             #             continue
+
+    #             # if j < dimension - 1: #if we are not is the right-most row, swap right and see what happens
+    #             #     num_goal_right = (i * dimension) + (j + 1)
+    #             #     if num == num_goal_right:
+    #             #         other_num_right = state.board[i][j + 1]
+    #             #         if other_num_right == cur_location_goal:
+    #             #             heuristic_value += 0.5
+    #             #             continue
+    #         #when multiplied my 10, it lines up with 5.
+    #         # when multiped by two, it lines up with 2.51 
+    #         heuristic_value += (abs(row-i) + abs(col-j)) * 0.5
+    # # print("heuristic ", heuristic_value, state) #FIXME: remove this print line
+    # return heuristic_value
