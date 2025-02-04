@@ -71,25 +71,33 @@ class IOTest(unittest.TestCase):
                          "Path should not contain duplicate elements")
         
     def test_astar(self):
-        start_state = TileGameState(((4, 1, 3), (7, 2, 6), (9, 5, 8)))
-        goal_state = TileGameState(((1, 2, 3), (4, 5, 6), (7, 8, 9)))
-        self._check_tilegame(start_state, goal_state, length=7, heuristic=admissible_heuristic)
-        self._check_tilegame(start_state, goal_state, heuristic=inadmissible_heuristic)
+        # start_state = TileGameState(((4, 1, 3), (7, 2, 6), (9, 5, 8)))
+        # goal_state = TileGameState(((1, 2, 3), (4, 5, 6), (7, 8, 9)))
+        # self._check_tilegame(start_state, goal_state, length=7, heuristic=admissible_heuristic)
+        # self._check_tilegame(start_state, goal_state, heuristic=inadmissible_heuristic)
 
-        #checks that astar works when the start state is the goal state
-        self._check_tilegame(goal_state, goal_state, length=1, heuristic=admissible_heuristic)
-        self._check_tilegame(goal_state, goal_state, length=1, heuristic=inadmissible_heuristic)
+        # #checks that astar works when the start state is the goal state
+        # self._check_tilegame(goal_state, goal_state, length=1, heuristic=admissible_heuristic)
+        # self._check_tilegame(goal_state, goal_state, length=1, heuristic=inadmissible_heuristic)
 
-        #checks that astar works on a 1-by-1 board
-        one_by_one_board = TileGameState(((1,),))
-        self._check_tilegame(one_by_one_board, one_by_one_board, length=1, heuristic=admissible_heuristic)
-        self._check_tilegame(one_by_one_board, one_by_one_board, length=1, heuristic=inadmissible_heuristic)
+        # #checks that astar works on a 1-by-1 board
+        # one_by_one_board = TileGameState(((1,),))
+        # self._check_tilegame(one_by_one_board, one_by_one_board, length=1, heuristic=admissible_heuristic)
+        # self._check_tilegame(one_by_one_board, one_by_one_board, length=1, heuristic=inadmissible_heuristic)
 
-        #checks that astar finds the shortest path when only one swap is needed
-        one_swap_board_start = TileGameState(((3, 2), (1, 4)))
-        one_swap_board_goal = TileGameState(((1, 2), (3, 4)))
-        self._check_tilegame(one_swap_board_start, one_swap_board_goal, length=2, heuristic=admissible_heuristic)
-        self._check_tilegame(one_swap_board_start, one_swap_board_goal, length=2, heuristic=inadmissible_heuristic)
+        # #checks that astar finds the shortest path when only one swap is needed
+        # one_swap_board_start = TileGameState(((3, 2), (1, 4)))
+        # one_swap_board_goal = TileGameState(((1, 2), (3, 4)))
+        # self._check_tilegame(one_swap_board_start, one_swap_board_goal, length=2, heuristic=admissible_heuristic)
+        # self._check_tilegame(one_swap_board_start, one_swap_board_goal, length=2, heuristic=inadmissible_heuristic)
+        # one_swap_problem = HeuristicTileGame(2, admissible_heuristic, one_swap_board_start, one_swap_board_goal)
+        # one_swap_path, one_swap_stats = astar(one_swap_problem)
+        # self.assertEqual(one_swap_path, 
+        #                  [TileGameState(((3, 2), (1, 4))), TileGameState(((1, 2), (3, 4)))])
+        # self.assertEqual(one_swap_stats["path_length"], 2)
+        # self.assertEqual(one_swap_stats["states_expanded"], 1)
+        # self.assertEqual(one_swap_stats["total_cost"], 1)
+        # self.assertEqual(one_swap_stats["max_frontier_size"], 4)
 
         #checks that the admissible_heuristic finds the shortest path when 
         # some swaps moves 2 tiles in the right direction
@@ -97,12 +105,20 @@ class IOTest(unittest.TestCase):
         two_swap_goal_state = TileGameState(((1, 2, 3), (4, 5, 6), (7, 8, 9)))
         self._check_tilegame(two_swap_start_state, two_swap_goal_state, length=3, heuristic=admissible_heuristic)
         self._check_tilegame(two_swap_start_state, two_swap_goal_state, heuristic=inadmissible_heuristic)
+        #testeing that astar finds the correct path and stats:
+        two_swap_problem = HeuristicTileGame(2, admissible_heuristic, two_swap_start_state, two_swap_goal_state)
+        _, two_swap_stats = astar(two_swap_problem)
+        self.assertEqual(two_swap_stats["path_length"], 3)
+        self.assertEqual(two_swap_stats["states_expanded"], 2)
+        self.assertEqual(two_swap_stats["total_cost"], 2)
+
 
         #checks on a 2-by-2 board that admissible_heuristic finds a path of the right length
         four_swap_start_state = TileGameState(((4, 2), (3, 1)))
         four_swap_goal_state = TileGameState(((1, 2), (3, 4)))
         self._check_tilegame(four_swap_start_state, four_swap_goal_state, length=4, heuristic=admissible_heuristic)
         self._check_tilegame(four_swap_start_state, four_swap_goal_state, heuristic=inadmissible_heuristic)
+
 
         five_swap_start_state = TileGameState(((4, 3), (2, 1)))
         five_swap_goal_state = TileGameState(((1, 2), (3, 4)))

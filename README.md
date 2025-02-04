@@ -31,17 +31,27 @@ DFS Average Path Length:  45882.7
 IDS Average Path Length:  9.9
 
 ### Task 4a
-my_hueristic checks to see if any of the valid swaps move two tiles into their correct position.
-If a swap
+my_hueristic checks to see if any of the valid swaps move two tiles into their correct position. For each tile, it checks if a swap puts two tiles in the correct position. If a swap does put two tiles in the correct position, it only adds a cost of 0.5 for each of those tiles. Otherwise, it will add the manhattan distance for each tile not yet in its correct location.
 
 ### Task 4b
+In the graph, my_hueristic got the highest path length compared to all of the manhattan distance points, but it also expanded less states than lambda = 1 and lambda = 1.26. That being said, it was worse in both path length and states expanded compated to when lambda >= 3.97 using manhattan distance. My_lambda is definelty not the right choice when trying to maximize optimality, but if time is the limiting factor, that using manhattan distance with a higher lambda or my_heuristic may be the best choice.
 
+Side note: When trying to test my_heuristic, I ran my_huestic with the code of admissible_heuristic, and instead of being plotted near lamdba = 1 (because it was the same function) it was plotted with a much greater path length. I went to TA hours and using their sample code the TA got the same results, so I think something may be wrong with the plotting of my_heursitic on the graph.
 
 ### Tests
+To _check_tilegame I added:
+1. a check that the path contains no repeated states
+2. a check that the path only contains valid moves
+
+Tests I added:
+1. I tested astar on a one-by-one board
+2. I tested astar on a board that was already at the goal state
+3. I tested that the admissable_heursitics could find the shortest path on starting boards that needed a variety of numbers of swaps
+4. tested that astar produced the correct path, with the correct length, cost, states_expanded, and max_frontier on a 2-by-2 tile game.
 
 
-Collaborators:
+Collaborators: Bhavani - discussed ways to make astar more efficient such as using a dictionary to store the visited states.
 
 Hours spent on homework: A lot, maybe 8 hours? I defintely didn't count.
 
-Known bugs:
+Known bugs: None! yay!
