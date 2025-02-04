@@ -92,7 +92,7 @@ def astar(problem: HeuristicSearchProblem) -> tuple[Optional[List[State]], Dict[
     #open_set contains a tuple of (priorty, (state, cur_path_length))
     open_set.put((problem.heuristic(start_state), (start_state, 1)))
     #has_been_added contains all states that have been put in the open_set
-    has_been_added = [start_state]
+    has_been_added = {start_state: True}
     steps_taken = {} # will map a state to the predicesor state it came from
     while not open_set.empty():
         _ , state_and_path_length = open_set.get()
@@ -112,7 +112,7 @@ def astar(problem: HeuristicSearchProblem) -> tuple[Optional[List[State]], Dict[
                 steps_taken[successor] = cur_state
                 priority = problem.heuristic(successor) + cur_path_length
                 open_set.put((priority, (successor, cur_path_length + 1)))
-                has_been_added.append(successor)
+                has_been_added[successor] = True
         stats["states_expanded"] = stats["states_expanded"] + 1
         stats["max_frontier_size"] = max(stats["max_frontier_size"], open_set.qsize())
     return None, stats

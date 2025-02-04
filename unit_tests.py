@@ -109,6 +109,7 @@ class IOTest(unittest.TestCase):
         self._check_tilegame(five_swap_start_state, five_swap_goal_state, length=5, heuristic=admissible_heuristic)
         self._check_tilegame(five_swap_start_state, five_swap_goal_state, heuristic=inadmissible_heuristic)
 
+#FIXME: add stats testing
 
 if __name__ == "__main__":
     unittest.main()
